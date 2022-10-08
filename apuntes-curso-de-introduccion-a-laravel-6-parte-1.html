@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <title>Curso de Introducción a Laravel 6</title>
+    <style>
+        img {
+            max-width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="text-center">
+        <h1>Curso de Introducción a Laravel 6</h1>
+    </header>
+    <main class="container">
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 1 de 37 - ¡Actualizamos este curso!</h2>
+                <div class="MaterialLecture-text">
+                    <p><img src="https://static.platzi.com/media/user_upload/Renovando-Material-1ba59c44-023b-4b90-bd4b-9904c239779d.jpg"
+                            alt="Renovando-Material.png"><br>
+                        ¡Hola, Platzinauta!</p>
+                    <p>En Platzi estamos muy contentos de que te estés formando en Laravel con nosotros. Queremos
+                        contarte que renovamos este curso para brindarte nuevos conocimientos y herramientas útiles y
+                        actualizadas que estamos seguros de que te van a encantar.</p>
+                    <p>No te preocupes si llevas adelantadas varias clases, de hecho, puedes terminar de verlas y formar
+                        las bases para el nuevo curso que lanzamos. Además, este material quedará disponible para
+                        consulta siempre que lo necesites.</p>
+                    <p>Ya puedes tomar el nuevo <a href="https://platzi.com/cursos/laravel/" target="_blank"
+                            rel=" noopener">Curso de Introducción a Laravel</a>. Seguro te va a servir para afianzar tus
+                        conocimientos. Recuerda que lo más importante es que nunca dejes de aprender.</p>
+                    <p>¡Nos vemos en el nuevo curso!</p>
+                </div>
+            </article>
+        </section>
+
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 2 de 37 - Que es Laravel</h2>
+                <div class="Transcript-text">
+                    <p>Y qué tal? Cómo estás? Bienvenido a este curso llamado Introducción al árabe La Mi</p>
+                    <p>nombre es y tal o Morales y soy el profesor de este curso. </p>
+                    <p>Te invito a que sigamos en contacto a través de las siguientes redes sociales Mi </p>
+                    <p>experiencia en este mundo de la programación web tiene mucho sobre el tema del árabe En los
+                        últimos </p>
+                    <p>cinco años han sido desarrollando en esta tecnología a nivel de requisitos No exijo mucho a nivel
+                        de </p>
+                    <p>conocimientos. Sin embargo, sería muy interesante que te estudies El curso de </p>
+                    <p>PHP disponible en Platzi Lar Abel es una herramienta construida en PHP. </p>
+                    <p>Es importante que conozcas un poco del lenguaje para luego tomar y entender todo lo que vamos a
+                        hacer </p>
+                    <p>utilizando este gran Friend Word Sin embargo, que es la árabe el Podemos entenderlo de forma
+                        sencilla </p>
+                    <p>como simplemente una herramienta de desarrollo web. </p>
+                    <p>Esta herramienta, por supuesto, te va a permitir desarrollar páginas web, sistemas AP </p>
+                    <p>y todo lo que venga a tu imaginación. Cuando hablamos precisamente del tema web La </p>
+                    <p>respuesta a esta pregunta es La árabe? El es una herramienta que nos va a ayudar mucho cuando
+                    </p>
+                    <p>necesitemos desarrollar un sistema web y que tiene de especial. </p>
+                    <p>Cuál es el poder de esta herramienta? En la diapositiva. </p>
+                    <p>Tenemos la página de Platzi Y si nosotros hablamos de un sistema como éste, cuál es el negocio
+                        realmente </p>
+                    <p>Qué es lo que queremos nosotros como el dueño del producto hacer con esta plataforma básicamente
+                    </p>
+                    <p>registran carreras. Esas carreras deben contener cursos. </p>
+                    <p>Esos cursos van a tener elecciones y estas elecciones van a tener vídeos públicos, videos
+                        privados </p>
+                    <p>etcétera. Eso es lo que le interesa al cliente. En este sentido, un cliente no va a pagar por
+                    </p>
+                    <p>hacer le precisamente un sistema de lo Vim De hecho Lara ver tiene por defecto el inicio de
+                        sesión con </p>
+                    <p>redes sociales. El cliente necesita que le resolvamos los problemas y nosotros se los vamos a
+                        resolver </p>
+                    <p>utilizando esta tecnología. Sin embargo, el cliente asume que va a tener exportar </p>
+                    <p>en ExCel, exportar en PDF, paginación de datos, conexión a base de datos, etcétera. </p>
+                    <p>Es necesario que utilicemos un fren Word como este que tenga dentro de sí todo lo que necesitamos
+                        para </p>
+                    <p>dedicarnos única y exclusivamente a resolver el problema que el cliente quiere resolver Y </p>
+                    <p>para entender perfectamente a la Gravel podemos verlo como un sistema de capas. </p>
+                    <p>Básicamente en la primera columna vemos la etapa de las rutas Una ruta es lo que colocamos en el
+                        navegador </p>
+                    <p>Presionamos enter para que nos aparezcan una página web y podemos hacer las diferentes
+                        combinaciones </p>
+                    <p>Si entendemos bien este sistema de capas, podemos resolver cualquier problema Esta </p>
+                    <p>ruta puede disparar o dar como resultado una vista Sin embargo, esto se puede organizar </p>
+                    <p>un poco más, como vemos en la columna del medio y hacer que la ruta vaya a una lógica de
+                        programación </p>
+                    <p>y que esta lógica nos devuelva una vista, un PDF, un ex, el y en la tercera columna tenemos
+                        también </p>
+                    <p>otro sistema de rutas que se puede combinar. Tenemos una ruta, ruego tenemos un sistema de
+                        seguridad </p>
+                    <p>Por ejemplo una persona no puede haber un curso a menos que esté el odiado y anti además debe
+                    </p>
+                    <p>tener la suscripción activa. Esa sería nuestra capa de seguridad Si. </p>
+                    <p>Tenemos eso aprobado. Podemos entonces ver la logica DE programacion y finalmente, la vista que
+                        queremos </p>
+                    <p>ver Entender al Anabel es precisamente compararlo con un sistema de capas. </p>
+                    <p>Y cuando comprendamos estas capas podemos resolver cualquier problema. </p>
+                    <p>Los proyectos que vamos a desarrollar en este curso son los siguientes El primero es </p>
+                    <p>este sistema sencillo que me va a permitir registrar usuarios, listar los y además eliminarlo
+                    </p>
+                    <p>siempre siendo eliminar el sistema. Me pregunta si deseo eliminarlo. </p>
+                    <p>Presión, afectar, lo elimina y supresión o cancelar. </p>
+                    <p>No sucede nada. Este sería una clase demostrativa precisamente del poder de la árabe, el Como
+                    </p>
+                    <p>segundo proyecto. Tenemos básicamente un registro de Pou y esto está superinteresante porque </p>
+                    <p>vamos a tener aquí diferentes contenidos. En este caso estamos presentando un pocas. </p>
+                    <p>Tiene el pocas, tiene el título, tiene la fecha el usuario y podemos leer más. </p>
+                    <p>También tenemos un contenido sin imagen, sin poder, casi sin video. </p>
+                    <p>Más abajo Tenemos un vídeo y así podemos tener aquí diferentes pos con diferente contenido
+                        multimedia </p>
+                    <p>Y finalmente vamos a desarrollar una Vim, básicamente un código preparado en el servidor para
+                    </p>
+                    <p>que cualquier dispositivo Android cualquier cosa desarrollada en viu Henry aqu se </p>
+                    <p>pueda conectar a nuestros sistemas y pueda a partir de allí, consumir los datos En </p>
+                    <p>la siguiente clase. Encontrarás una información detallada con todo lo que necesitas saber para
+                        tener </p>
+                    <p>al árabe El funcionando en tu computador estudia Laponia son práctica y una vez tenga Salar Apple
+                        en </p>
+                    <p>tu computador, podemos avanzar con el curso. Nos vemos en la siguiente clase </p>
+                </div>
+            </article>
+        </section>
+
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 3 de 37 - Herramientas necesarias para trabajar con PHP y Laravel</h2>
+                <div class="MaterialLecture-text">
+                    <h2>Respecto a Laravel 6</h2>
+                    <p>En este gran curso puedes utilizar la versión 6 de Laravel, la cual actualmente se encuentra en
+                        un estado de LTS (<em>Long-term Support</em>), esto quiere decir que a diferencia de las
+                        versiones 7 y 8 Laravel 6 tendrá soporte por un periodo más prolongado hasta el <strong>3 de
+                            septiembre de 2022</strong> y puedes tener la tranquilidad de podrás aprender de este gran
+                        framework sin dificultades.</p>
+                    <p>Por supuesto, una vez apruebes este curso también puedes tomar el <a
+                            href="https://platzi.com/cursos/introduccion-laravel-8/" target="_blank"
+                            rel="noopener">Curso de Introducción a Laravel 8</a> donde aprenderás a utilizar algunas de
+                        las mejoras que nos trae esta tecnología en su más reciente versión. Esta recibe actualizaciones
+                        aproximadamente cada 6 meses, pero es importante que siempre trabajemos con versiones estables
+                        para que nuestros proyectos no presenten inconvenientes.</p>
+                    <h2>Requisitos</h2>
+                    <p>Para trabajar con PHP necesitamos convertir a nuestro equipo en un servidor web, esto se debe a
+                        PHP es un lenguaje del lado del servidor a diferencia de Javascript que es del lado del cliente
+                        y funciona bien solo con el navegador.</p>
+                    <p>Del lado del servidor significa que consiste en el procesamiento de una petición de usuario en
+                        una computadora llamada servidor web, esta petición se procesa y luego genera páginas en HTML
+                        con la respuesta deseada.</p>
+                    <h2>Servidor HTTP</h2>
+                    <p>Un servidor web o servidor HTTP es básicamente un programa que se instala en una computadora con
+                        el fin de procesar un sistema web, con este programa la computadora queda preparada para recibir
+                        peticiones de usuario generando respuestas a clientes. Cuando escribes en el navegador <a
+                            href="https://platzi.com" target="_blank" rel="noopener">platzi.com</a> y presionas enter se
+                        busca en Internet la computadora con este nombre y al encontrarla el servidor procesa, entiende
+                        lo que necesitas y retorna la respuesta "la página home de platzi".</p>
+                    <p>Para crear un proyecto o programa web necesitamos simular que nuestro computador es un servidor
+                        web y lo logramos instalando un programa, en este caso sería Apache o Nginx.</p>
+                    <h2>PHP</h2>
+                    <p>Es el lenguaje de programación que usaremos en el curso y necesitamos instalarlo para que nuestro
+                        Servidor HTTP interprete correctamente nuestro código. Básicamente vamos a escribir en PHP así
+                        que instalamos el idioma PHP en nuestro equipo.</p>
+                    <h2>Base de Datos</h2>
+                    <p>Necesitamos instalar en nuestro equipo la base de datos que usaremos en el curso, esta puede ser
+                        MySql o MariaDB. Ambas funcionarían muy bien porque se entienden perfectamente con PHP.</p>
+                    <h2>Software de Instalación</h2>
+                    <p>En resumen necesitamos convertir a nuestro equipo en un servidor web, para ellos básicamente
+                        instalamos:</p>
+                    <ol>
+                        <li><strong>Servidor web</strong>: Apache o Nginx.</li>
+                        <li><strong>Lenguaje</strong>: PHP.</li>
+                        <li><strong>Base de datos</strong>: MySql o MariaDB.</li>
+                    </ol>
+                    <p>Hay varias opciones, yo te recomiendo instalar las mas sencillas porque nuestro enfoque es la
+                        programación no la administración de servidores y estos conceptos hay que entenderlos bien, sin
+                        darnos cuenta estamos haciendo de nuestro computador un servidor web y un servidor de base de
+                        datos.</p>
+                    <ol>
+                        <li>
+                            <p><strong>XAMPP</strong>: <a href="https://www.apachefriends.org/es/download.html"
+                                    target="_blank" rel="noopener">https://www.apachefriends.org/es/download.html</a>.
+                            </p>
+                        </li>
+                        <li>
+                            <p><strong>MAMP</strong>: <a href="https://www.mamp.info/en/downloads/" target="_blank"
+                                    rel="noopener">https://www.mamp.info/en/downloads/</a>.</p>
+                        </li>
+                        <li>
+                            <p><strong>En Mac</strong> Usando <code>brew</code> en Mac podrías instalar valet y por
+                                separado a PHP y MySql. El tutorial completo está en la doc de Laravel <a
+                                    href="https://laravel.com/docs/6.x/valet" target="_blank"
+                                    rel="noopener">https://laravel.com/docs/6.x/valet</a> básicamente sería:</p>
+                            <ol>
+                                <li><code>brew update</code>.</li>
+                                <li><code>brew install php</code>.</li>
+                                <li><code>brew install mysql</code>.</li>
+                                <li><code>composer global require laravel/valet</code>.</li>
+                                <li>Por último <code>valet install</code>.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <p>También existe la opción de usar Homestead, esto es más avanzado y requiere una
+                                configuración mayor, aquí la doc <a href="https://laravel.com/docs/6.x/homestead"
+                                    target="_blank" rel="noopener">https://laravel.com/docs/6.x/homestead</a></p>
+                        </li>
+                    </ol>
+                    <p>Yo uso la opción número tres, sin embargo, la opción de XAMPP y MAMP es muy válido. La idea es
+                        despreocuparnos del servidor y enfocarnos en lo importante que es la programación en PHP usando
+                        Laravel.</p>
+                    <h2>Herramientas Importantes</h2>
+                    <p>El método de instalación de Laravel es a través de composer, un gestor de paquetes PHP que provee
+                        todo lo que necesitemos respecto a este lenguaje. Puedes instalarlo desde este enlace <a
+                            href="https://getcomposer.org/download/" target="_blank"
+                            rel="noopener">https://getcomposer.org/download/</a></p>
+                    <p>También es muy importante contar con Git, este es nuestro control de versiones de nuestro
+                        software y lo podemos instalar desde su web <a href="https://git-scm.com/downloads"
+                            target="_blank" rel="noopener">https://git-scm.com/downloads</a></p>
+                    <p>Para escribir código necesitaremos a Sublime Text, Visual Studio Code o el editor que prefieras,
+                        en el curso usaremos a Visual Studio Code. Y para observar el resultado podemos usar a cualquier
+                        navegador web, yo usaré Google Chrome.</p>
+                    <h3>Resumen</h3>
+                    <p>Necesitamos el software necesario para convertir nuestro computador en un servidor web, en
+                        resumen necesitamos:</p>
+                    <ol>
+                        <li><strong>Lenguaje</strong>: PHP &gt;= 7.2.0.</li>
+                        <li><strong>Servidor</strong>: Apache, Nginx.</li>
+                        <li><strong>Base de datos</strong>: MySql, MariaDB.</li>
+                        <li><strong>Composer</strong>.</li>
+                        <li><strong>Git</strong>.</li>
+                        <li><strong>Editor de código</strong>.</li>
+                        <li><strong>Navegador</strong>.</li>
+                    </ol>
+                    <h2>Instalación de Laravel</h2>
+                    <p>Podemos usar composer directamente o instalar un software llamado "instalador de Laravel".</p>
+                    <ol>
+                        <li>
+                            <p>Con composer sería
+                                <code>composer create-project --prefer-dist laravel/laravel nombre-app</code><br>
+                                Para instalar una versión específica de Laravel, por ejemplo Laravel 6, debes
+                                especificarlo en el comando de instalación así:<br>
+                                <code>composer create-project --prefer-dist laravel/laravel dir "6.*"</code>
+                            </p>
+                        </li>
+                        <li>
+                            <p>Con Laravel Installer sería <code>composer global require laravel/installer</code>.</p>
+                        </li>
+                    </ol>
+                    <p>En el curso usaremos la opción dos, sin embargo puedes usar el método que gustes y todo al
+                        respecto lo conseguirás en este enlace: <a href="https://laravel.com/docs/6.x/installation"
+                            target="_blank" rel="noopener">https://laravel.com/docs/6.x/installation</a></p>
+                    <h3>Usas Mac y solo debes actualizar</h3>
+                    <p>Laravel siempre nos obligará a estar actualizado, te comparto este enlace: <a
+                            href="https://rimorsoft.com/actualizar-a-php-7-3-x-con-homebrew-en-mac" target="_blank"
+                            rel="noopener">https://rimorsoft.com/actualizar-a-php-7-3-x-con-homebrew-en-mac</a>, te
+                        ayudará mucho si usas Mac y un entorno de trabajo parecido al mio.</p>
+                </div>
+            </article>
+        </section>
+
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 4 de 37 - Entendiendo el ciclo de vida de las solicitudes web</h2>
+                <div class="Transcript-text">
+                    <p>y Hablemos de algo muy importante en esta clase Es importante entender el ciclo de vida de una
+                        solicitud</p>
+                    <p>para sentirnos más cómodos y seguros a la hora de fabricar un sistema. </p>
+                    <p>En este caso, necesitamos saber qué sucede Cuando vamos a navegador, colocamos La </p>
+                    <p>el nombre de una página web y presionamos enter Para entenderlo claramente. </p>
+                    <p>Necesitamos hacer la instalación de Lara, ver en la clase anterior Seguso dos métodos una </p>
+                    <p>utilizando directamente con Push ser para que se conecta a Internet y nos traiga el sistema. </p>
+                    <p>Y la otra es usar el instalador de la grave, el que es el que vamos a usar aquí </p>
+                    <p>en esta clase y en este caso me debo dirigir a mi carpeta de proyectos. </p>
+                    <p>En este caso, éste es el nombre de mi carpeta de proyectos. </p>
+                    <p>Simplemente se llama sitios Si tú, por ejemplo, escogiste San, Man o cualquier otro sistema para
+                    </p>
+                    <p>trabajar con PHP y en este caso con Anabel. Recuerda que el nombre de esta carpeta va a cambiar
+                        Sin </p>
+                    <p>embargo, lo importante es que estemos en la carpeta donde vamos a desarrollar Todos </p>
+                    <p>nuestros sistemas. En este caso, si escribo Lara Felipe, sino enter me doy cuenta que el
+                        instalador </p>
+                    <p>de Lara pel de mi computadora es tres puntos. Cero punto uno Está perfecto. </p>
+                    <p>Está actualizado Para instalarlo. Escribo el árabe, el New y vamos a llamarle este proyecto
+                        simplemente </p>
+                    <p>ciclo y presionó enter. Y fíjate que simplemente sucede ti todo lo que es la instalación Estoy
+                    </p>
+                    <p>concluir ya me tendría. De hecho, ya concluyen y ya me tiene un sistema listo </p>
+                    <p>para empezar a trabajar. Yo voy al navegador, voy a otra pestaña Escribo ciclo.txt En </p>
+                    <p>este caso, porque el servidor que instale para trabajar con PHP y con la árabe el Me </p>
+                    <p>habilita de una vez el nombre de la carpeta.txt para acceder al proyecto. </p>
+                    <p>Y aquí tenemos un proyecto desde cero, trabajando directamente con la árabe la. </p>
+                    <p>Ahora vamos a nuestro editor de código aquí Necesitamos decirle a nuestro editor de código con
+                        qué proyectos </p>
+                    <p>vamos a trabajar. Presionó Abrir carpeta Escojo ciclo presionó abrir y allí tengo mi proyecto.
+                    </p>
+                    <p>Todas estas son las carpetas que forman el proyecto del árabe. </p>
+                    <p>El todo el código que ya está hecho. Lo tenemos acá. </p>
+                    <p>Qué sucede? El? Primer paso, Cuando. Presionamos entre precisamente, como lo hicimos hace un
+                        momento </p>
+                    <p>para ver el proyecto. Nuestro navegador es que el sistema va a nuestro archivo. </p>
+                    <p>Tin despuntó php Y aquí. Qué sucede? Sucede que lo primero que se carga es el tema de las clases
+                        de </p>
+                    <p>PHP. Como paso número uno, todo lo que tiene que ver con PHP se carga y como paso número dos
+                        arranca </p>
+                    <p>o enciende nuestro Friend Word se enciende la árabe le Como Paso número tres. </p>
+                    <p>Comienza el sistema Aceptar cualquier solicitó y esto te puede ayudar a entender que cuando
+                        trabajamos </p>
+                    <p>con la árabe el hay un antes y un después luego de que todo esto carga como paso número cuatro.
+                    </p>
+                    <p>Podríamos hacerlo así comienza lo que nosotros programamos aquí. </p>
+                    <p>En este sistema, Por ejemplo, tenemos aquí la carpeta de rutas y tenemos un archivo llamado web
+                        punto </p>
+                    <p>php Este sería el siguiente paso. Y hace un momento vimos que cuando accedimos al proyecto vemos
+                    </p>
+                    <p>en pantalla que dice el árabe el de una serie de enlaces. </p>
+                    <p>Eso lo tenemos a casa. Dice exactamente que cuando lleguemos a las Reyes nos va a mostrar una
+                        vista </p>
+                    <p>que se llama Welcome. Esto, por supuesto, podemos evitarlo y ver Sehwail con Podemos retornar un
+                    </p>
+                    <p>texto. Vamos a escribir simplemente Hola. Vamos al navegador y actualizamos que </p>
+                    <p>sucedió en este momento. Cuando actualizo cuando accedo de nuevo, se cargan las clases de PHP y
+                        las </p>
+                    <p>que necesita la árabe. El se enciende el Friend Word y a partir de allí comienza a aceptar
+                        diferentes </p>
+                    <p>solicitudes. En este caso, una solicitud a través de nuestro navegador. </p>
+                    <p>Fíjate en algo Cuando Entramos aqui a nuestra visual Cool a nuestro editor de código. </p>
+                    <p>Tenemos también una carpeta que dices Ven duro. Esto tiene que ver con todo al </p>
+                    <p>respecto de paquetes y componentes que usa My Friend Word sigue elimina esta carpeta que </p>
+                    <p>sería el paso numero uno. Fíjate que si vamos al Index tenemos aquí que el paso numero uno es
+                    </p>
+                    <p>ir a Ben Dor y cargar algo que dice autólogo Add ver lo que sucede en el navegador. </p>
+                    <p>Actualizó y me dice que hay un error y aquí es donde yo debo entender Cuando sucede el error
+                        cargándose </p>
+                    <p>la árabe o con mi programación Según lo que dice allí dice claramente que no encuentra Ben Dor
+                        que hace </p>
+                    <p>falta el archivo y eso me ayuda a resolver rápidamente los problemas. </p>
+                    <p>Como yo sé que ese error es antes de mi programación, puedo escribir entonces con Pau se Install
+                    </p>
+                    <p>para que esa carpeta se vuelva a crear Men Door significa simplemente vendedores y </p>
+                    <p>en este caso me muestra un error. Sucede que no estoy dentro de la carpeta de mi proyecto. </p>
+                    <p>Estaba dentro de la carpeta de sitios. Entro mi proyecto y allí, por supuesto, se puede usar con
+                    </p>
+                    <p>boxer Install. Qué sucede en este momento? Lo que sucede? </p>
+                    <p>Es que se va a crear de nuevo nuestra carpeta Ben Dor con todos los paquetes que necesitamos Aquí
+                    </p>
+                    <p>la tenemos de nuevo Y por supuesto, mi sistema vuelve a funcionar. </p>
+                    <p>Perfecto. Ahora, si nosotros vamos de nuevo y modificamos aquí, simplemente colocamos otra </p>
+                    <p>ruta. El sistema. Fíjate que cuando voy a navegador estoy entrando a la raíz. </p>
+                    <p>Me dice ahora que existe un error cuatro cero cuatro Entonces, como yo conozco el ciclo de vida,
+                        el </p>
+                    <p>tema de solicitudes que sucede antes que sucede después de que se enciende el fren Word Entiendo
+                    </p>
+                    <p>que el errores de programación y puedo ir rápidamente a mi código y corregirlo. </p>
+                    <p>Entiendo que la ruta estaba mal escritas, que el sistema está funcionando correctamente y </p>
+                    <p>detectó rápidamente que debo solucionaron. Voy a navegador, actualizó y de nuevo tengo mi sistema
+                    </p>
+                    <p>funcionando cuando te comentaba en la clase numero uno de entender esto como un sistema de capas,
+                        hablaba </p>
+                    <p>especificamente de esto que acabamos de ver. Fíjate que hable de una capa de rutas y hay una
+                        carpeta </p>
+                    <p>que se llama rutas. Existía también en la de positiva, una carpeta llamada Vista y </p>
+                    <p>aquí tenemos una carpeta llamada Vista cada carpeta y cada capa hace referencia a lo mismo y </p>
+                    <p>aquí estamos viendo que tenemos una vista llamada Welcome. </p>
+                    <p>En ese caso sí, yo retorno precisamente esa vista. </p>
+                    <p>Tendríamos el mismo resultado que inicialmente vimos Cuando. </p>
+                    <p>Instalamos este componente y allí yo pudiera decidir si modificar directamente en la ruta o </p>
+                    <p>modificar en la vista que tenemos en la vista. Simplemente HTML pudiera eliminar </p>
+                    <p>estos enlaces, hacer cualquier modificación y por supuesto, vemos el resultado acá </p>
+                    <p>en pantalla. Entender esto como un sistema de capas te va a ayudar muchísimo y </p>
+                    <p>de esta forma vemos claramente cómo funciona el ciclo de vida de una solicitud. </p>
+                    <p>Es realmente simple los valiosos de esta clase es entender claramente cómo funciona el ciclo de
+                        vida </p>
+                    <p>de una solicitó. Y ahora que ya lo conocemos, podemos entonces fabricar nuestro </p>
+                    <p>primer proyecto en el árabe. La Eso lo vamos a hacer en la siguiente clase </p>
+                </div>
+
+                <p>
+                    <a href="https://laravel.com/docs/6.x/installation" target="_blank"
+                        rel="noopener noreferrer">https://laravel.com/docs/6.x/installation</a>
+                </p>
+
+
+
+                <pre class="prettyprint">
+
+                    > composer create-project --prefer-dist laravel/laravel ciclo "6.*"
+                    > cd ciclo
+                </pre>
+
+                <pre class="prettyprint">
+
+                    > php artisan serve
+                </pre>
+
+                <p>
+                    <a href="http://127.0.0.1:8000/" target="_blank"
+                        rel="noopener noreferrer">http://127.0.0.1:8000/</a>
+                </p>
+            </article>
+        </section>
+
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 5 de 37 - Qué es un CRUD y cómo implementarlo</h2>
+
+                <p>
+                    Crear la base de datos en mysql, en mi caso lo hice en workbench
+                    <br>
+                    colocar en las variables de entorno, el nombre de la base de datos, la contraseña de mysql.
+                    <br>
+                    hacer las migraciones, laravel ya viene con la tabla de usuarios.
+                    <br>
+                    en /database/migrations
+                </p>
+                <pre class="prettyprint">
+
+                > php artisan migrate
+            </pre>
+                <p>También ya hay unas rutas predefinidas en /routes/api.php y /routes/web.php
+                    <br>
+                    O las podemos ver
+                </p>
+                <pre class="prettyprint">
+
+                > php artisan route:list
+            </pre>
+                <p>
+                    Las rutas de /routes/api.php, las eliminamos o comentamos.
+                    <br>
+                    trabajaremos por ahora en /routes/web.php, la ruta que ya está la eliminamos.
+                    <br>
+                    en su lugar configuraremos nuestras propias rutas
+                </p>
+                <pre class="prettyprint">
+
+                Route::get('/', 'UserController@index');
+                Route::post('/users', 'UserController@store')->name('users.store');
+                Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
+            </pre>
+                <p>
+                    ->name, lo que hace es darle un nombre a la ruta, para que sea mas facil setearla/utilizarla
+                    en nuestras vistas.
+                    <br>
+                    Ya dejamos definidas las rutas, ahora nos toca crear los controladores.
+                    <br>
+                    /app/Http/Controllers, podemos crearlos manualmente o usar la terminal.
+                </p>
+                <pre class="prettyprint">
+
+                > php artisan make:controller UserController
+            </pre>
+                <p>
+                    Creamos nuestro 2 metodos que vamos a utilizar en las rutas y Si volvemos a mirar las rutas
+
+                </p>
+                <pre class="prettyprint">
+
+                > php artisan route:list
+            </pre>
+                <p>Encontramos nuestras 3 rutas.</p>
+            </article>
+        </section>
+
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 6 de 37 - Lógica de controladores y vista con datos de prueba</h2>
+                <p>Agregamos la lógica a nuestros controladores, no hay necesidad de utilizar
+                    lenguaje SQL para hacer las consultas.
+                </p>
+                <pre class="prettyprint">
+
+                class UserController extends Controller
+                {
+                    public function index()
+                    {
+                        $users = User::latest()->get();
+                
+                        return view('users.index', [
+                            'users' => $users
+                        ]);
+                    }
+                    
+                    public function store(Request $request)
+                    {
+                        User::create([
+                            'name' => $request->name,
+                            'email' => $request->email,
+                            'password' => $request->password,
+                        ]);
+                
+                        return back();
+                    }
+                    
+                    public function destroy(User $user)
+                    {
+                        $user->delete();
+                
+                        return back();
+                    }
+                }
+            </pre>
+                <p>En el controlador usamos una vista, entonces procedemos a crearla. Para mayor orden se crea una
+                    carpeta users
+                    /resources/views/users/index.blade.php
+                </p>
+                <pre class="prettyprint">
+
+                &lt!DOCTYPE html>
+                &lthtml lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+                    &lthead>
+                        &ltmeta charset="utf-8">
+                        &ltmeta name="viewport" content="width=device-width, initial-scale=1">
+                
+                        &lttitle>Laravel&lt/title>
+                
+                        &lt!-- Fonts -->
+                        &ltlink href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+                
+                        &lt!-- Styles -->
+                        &ltlink rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+                    &lt/head>
+                    &ltbody>
+                        &ltdiv class="container">
+                            &ltdiv class="row">
+                                &ltdiv class="col-sm-8 mx-auto">
+                                    &lttable class="table">
+                                        &ltthead>
+                                            &lttr>
+                                                &ltth>ID&lt/th>
+                                                &ltth>Nombre&lt/th>
+                                                &ltth>Email&lt/th>
+                                                &ltth>&nbsp;&lt/th>
+                                            &lt/tr>
+                                        &lt/thead>
+                                        &lttbody>
+                                            @foreach($users as $user)
+                                            &lttr>
+                                                &lttd>{{ $user->id }}&lt/td>
+                                                &lttd>{{ $user->name }}&lt/td>
+                                                &lttd>{{ $user->email }}&lt/td>
+                                                &lttd>Eliminar&lt/td>
+                                            &lt/tr>
+                                            @endforeach
+                                        &lt/tbody>
+                                    &lt/table>
+                                &lt/div>
+                            &lt/div>
+                        &lt/div>
+                    &lt/body>
+                &lt/html>
+                
+            </pre>
+                <p>Aún no tenemos ningún dato, pero Laravel también nos ayuda con eso</p>
+                <pre class="prettyprint">
+
+                > php artisan tinker
+
+                > factory(App\User::class, 12)->create()
+
+                > exit()
+            </pre>
+
+                <p>
+                    Con esto lo que hacemos es crear y ejecutar un archivo /database/factories/UserFactory.php
+                    <br>
+                    creamos 12 registros.
+                    <br>
+                    Creamos el botón para eliminar registros
+                </p>
+
+                <pre class="prettyprint">
+
+            &lttd>
+                &ltform action="{{ route('users.destroy', $user) }}" method="post">
+                    @method('DELETE')
+                    @csrf
+                    &ltinput type="submit" value="Eliminar" class="btn btn-sm btn-danger"
+                    onclick="return confirm('¿Desea eliminar... ?')">
+                &lt/form>
+            &lt/td>            
+            </pre>
+            </article>
+        </section>
+
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 7 de 37 - Creando un formulario</h2>
+                <pre class="prettyprint">
+
+            &ltdiv class="card border-0 shadow">
+                &ltform action="{{ route('users.store') }}" method="post">
+                    &ltdiv class="card-body">
+                        &ltdiv class="form-row">
+                            &ltdiv class="col-sm-3">
+                                &ltinput type="text" class="form-control" name="name" placeholder="Nombre">
+                            &lt/div>
+                            &ltdiv class="col-sm-4">
+                                &ltinput type="text" class="form-control" name="email" placeholder="Email">
+                            &lt/div>
+                            &ltdiv class="col-sm-3">
+                                &ltinput type="password" class="form-control" name="password" placeholder="Password">
+                            &lt/div>
+                            &ltdiv class="col-auto">
+                                @csrf
+                                &ltbutton type="submit" class="btn btn-primary">Enviar&lt/button>
+                            &lt/div>
+                        &lt/div>
+                    &lt/div>
+                &lt/form>
+            &lt/div>
+            </pre>
+                <p>Validaciones en el controlador y encriptacion de la contraseña</p>
+                <pre class="prettyprint">
+
+                public function store(Request $request)
+                {
+                    $request->validate([
+                        'name'     => ['required'],
+                        'email'    => ['required', 'email', 'unique:users'],
+                        'password' => ['required', 'min:8'],
+                    ]);
+                        
+                    User::create([
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'password' => bcrypt($request->password),
+                    ]);
+                        
+                    return back();
+                }
+                
+                </pre>
+                <p>Mostrando errores en el HTML</p>
+                <pre class="prettyprint">
+
+                    @if($errors->any())
+                    &ltdiv class="alert alert-danger">
+                        @foreach($errors->all() as $error)
+                        - {{ $error }} &ltbr>
+                        @endforeach
+                    &lt/div>
+                    @endif
+                </pre>
+                <p>Prevenir que se borren los datos si algun dato no pasa la validación.</p>
+                <pre class="prettyprint">
+
+                &ltdiv class="col-sm-3">
+                    &ltinput type="text" class="form-control" name="name" placeholder="Nombre" value="{{ old('name') }}">
+                &lt/div>
+                &ltdiv class="col-sm-4">
+                    &ltinput type="text" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
+                &lt/div>
+                </pre>
+            </article>
+        </section>
+
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 8 de 37 - Sistema de rutas y controladores</h2>
+                <pre class="prettyprint">
+
+                > composer create-project --prefer-dist laravel/laravel routes "6.*"
+                > cd routes
+                > php artisan serve
+            </pre>
+
+                <pre class="prettyprint">
+
+                // Forma como lo hace laravel cuando genera el proyecto
+                Route::get('/', function () {
+                    return view('welcome');
+                });
+                
+                // // retornar una vista pero en un sola linea
+                // Route::view('prueba-vista', 'welcome');
+                
+                // // retornar una vista pero en un sola linea con datos
+                // Route::view('prueba-vista-2', 'welcome', ['username' => 'Alex']);
+                
+                // // retornando solo texto
+                // Route::get('prueba', function () {
+                //     return 'hola';
+                // });
+                
+                // Con esta linea y la siguiente linea en el terminal
+                // php artisan make:controller PageController
+                // Creamos el controlador, pero tambien podemos ver 7 rutas
+                // php artisan route:list
+                // pero el controlador no tiene los 7 metodos
+                
+                // Eliminamos el archivo del controlador
+                // si el comando es
+                // php artisan make:controller PageController
+                // el controlador ya aparece con los 7 metodos, pero sin la logica.
+                
+                // Eliminamos el archivo del controlador
+                // si el comando es
+                // php artisan make:controller PageController --resource
+                // el controlador aparece con los 7 metodos, pero sin la logica.
+
+                // Eliminamos el archivo del controlador
+                // si el comando es
+                // php artisan make:controller PageController --resource --model=Page
+                // el controlador ya aparece con los 7 metodos, pero sin la logica.
+                // Ademas se crea el modelo y se relaciona con el controlador
+                Route::resource('pages', 'PageController');
+            </pre>
+            </article>
+        </section>
+
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 9 de 37 - Uso de Middlewares</h2>
+                <pre class="prettyprint">
+
+                > composer create-project --prefer-dist laravel/laravel middlewares "6.*"
+                > cd middlewares
+                > php artisan serve
+            </pre>
+                <pre class="prettyprint">
+                // Carpeta donde se guardan los middlewares
+                app/Http/Middleware
+
+                // Archivo donde estan los nombres de los middlewares
+                app/Http/Kernel.php
+            </pre>
+                <p>Los podemos usar en las rutas</p>
+                <pre class="prettyprint">
+
+                Route::get('/', function () {
+                    return view('welcome');
+                })->middleware('auth');
+            </pre>
+                <p>También en los controladores</p>
+                <pre class="prettyprint">
+
+                > php artisan make:controller UserController
+            </pre>
+                <pre class="prettyprint">
+
+                class UserController extends Controller
+                {
+                    public function __construct()
+                    {
+                        $this->middleware('auth');
+                    }
+                }
+            </pre>
+                <p>En cual es mejor utilizarlo? No tiene sentido utilizarlo en los 2, pero por lo general se
+                    hace en la ruta para que el controlador quede mas corto.
+                </p>
+                <pre class="prettyprint">
+
+                // Otro ejemplo en las rutas con resource
+                Route::resource('users', 'UserController')->middleware('auth');
+            </pre>
+
+                <div class="Resources-description">
+                    <h1>Video #8 - Uso de Middleware</h1>
+                    <p>Veamos en este post cómo crear e implementar un middleware. La función principal es proporcionar
+                        una fácil y conveniente capa para filtrar las solicitudes HTTP. Existen diferentes maneras de
+                        hacerlo y de hecho Laravel incluye un middleware que verifica si el usuario está autenticado.
+                    </p>
+                    <p>Puedes crear un middleware de registro y tener logs detallados de cada solicitud entrante,
+                        cualquier cosa que se te ocurra respecto a HTTP puedes llevarla a cabo usando esta tecnología.
+                    </p>
+                    <h2>Middleware Personalizado</h2>
+                    <pre><code class="language-shell">$ php artisan make:middleware <span class="hljs-keyword">Subscribed
+                </span></code></pre>
+                    <p>Este se crea en <code>app/Http/Middleware/Subscribed.php</code>. Con él puedes verificar si el
+                        usuario está suscrito a mi plan de pago de mi sistema web. O crear un middleware que revise si
+                        el usuario que se intenta registrar es mayor de edad.</p>
+                    <pre><code class="language-shell"><span class="hljs-variable">$ </span>php artisan <span class="hljs-symbol">make:</span>middleware VerifyAge
+                </code></pre>
+                    <p>En ambos casos tendremos nuestros middleware estarán creados en
+                        <code>app\Http\Middleware\</code>. Dentro de cada archivo debemos colocar la lógica de acceso
+                        correcto. Por ejemplo:</p>
+                    <pre><code class="language-php"><span class="hljs-meta">
+                
+                <span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Middleware</span>;
+                
+                <span class="hljs-keyword">use</span> <span class="hljs-title">Closure</span>;
+                
+                <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Subscribed</span>
+                </span>{
+                    <span class="hljs-comment">//...</span>
+                    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle</span><span class="hljs-params">($request, Closure $next)</span>
+                    </span>{
+                        <span class="hljs-keyword">if</span> ( ! $request-&gt;user()-&gt;subscribed) {
+                            <span class="hljs-keyword">return</span> abort(<span class="hljs-number">403</span>, <span class="hljs-string">'Sin suscripción activa'</span>);
+                        }
+                
+                        <span class="hljs-keyword">return</span> $next($request);
+                    }
+                }
+                </span></code></pre>
+                    <p><strong>403</strong>: La solicitud fue legal, fue correcta, pero el servidor no la responderá
+                        porque el cliente no tiene los privilegios o permisos.</p>
+                    <p>Y respecto a la edad podemos hacer lo siguiente:</p>
+                    <pre><code class="language-php"><span class="hljs-meta">
+                
+                <span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Middleware</span>;
+                
+                <span class="hljs-keyword">use</span> <span class="hljs-title">Closure</span>;
+                
+                <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VerifyAge</span>
+                </span>{
+                    <span class="hljs-comment">//...</span>
+                    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle</span><span class="hljs-params">($request, Closure $next)</span>
+                    </span>{
+                        <span class="hljs-keyword">if</span> ($request-&gt;get(<span class="hljs-string">'age'</span>) &lt; <span class="hljs-number">18</span>) {
+                            <span class="hljs-keyword">return</span> redirect(<span class="hljs-string">'guidelines'</span>);
+                        }
+                
+                        <span class="hljs-keyword">return</span> $next($request);
+                    }
+                }
+                </span></code></pre>
+                    <p>Aquí dirigimos al usuario a una vista que tenga los textos apropiados para explicarle porqué no
+                        podemos seguir con el registro.</p>
+                    <h3>Registro de las Clases Middleware</h3>
+                    <pre><code class="language-php"><span class="hljs-meta">
+                
+                <span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>;
+                
+                <span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Foundation</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Kernel</span> <span class="hljs-title">as</span> <span class="hljs-title">HttpKernel</span>;
+                
+                <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Kernel</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpKernel</span>
+                </span>{
+                    <span class="hljs-comment">//...</span>
+                    <span class="hljs-keyword">protected</span> $middleware = [];
+                
+                    <span class="hljs-comment">//...</span>
+                    <span class="hljs-keyword">protected</span> $middlewareGroups = [];
+                
+                    <span class="hljs-comment">//...</span>
+                    <span class="hljs-keyword">protected</span> $routeMiddleware = [
+                        <span class="hljs-string">'auth'</span> =&gt; \App\Http\Middleware\Authenticate::class,
+                        <span class="hljs-string">'subscribed'</span> =&gt; \App\Http\Middleware\Subscribed::class,
+                        <span class="hljs-string">'verify-age'</span> =&gt; \App\Http\Middleware\VerifyAge::class,
+                    ];
+                
+                    <span class="hljs-comment">//...</span>
+                    <span class="hljs-keyword">protected</span> $middlewarePriority = [];
+                }
+                </span></code></pre>
+                    <p>Y luego podemos usarla y aplicarla donde corresponde. Veamos en una ruta varios ejemplos:</p>
+                    <pre><code class="language-php">Route::get(<span class="hljs-string">'/example'</span>, <span class="hljs-string">'ExampleController@...'</span>)
+                    -&gt;middleware(<span class="hljs-string">'auth'</span>, <span class="hljs-string">'subscribed'</span>, <span class="hljs-string">'verify-age'</span>);
+                </code></pre>
+                    <p>Acá y en el video de la clase vimos la forma correcta de proteger a nuestras rutas o métodos en
+                        controladores, lo importante es definir qué queremos proteger o interceder y crear la lógica en
+                        un archivo aparte. Una persona con poca experiencia usaría estos <code>if</code> pero en las
+                        vistas, en cada método de un controlador o en cada una de las rutas. Esto funcionaria pero no es
+                        la manera correcta de trabajar.</p>
+                </div>
+            </article>
+        </section>
+
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 10 de 37 - Validación de datos (rutas, vistas, formularios y controladores)</h2>
+                <pre class="prettyprint">
+                        
+                    > composer create-project --prefer-dist laravel/laravel formrequest "6.*"
+                    > cd formrequest
+                    > php artisan serve
+                </pre>
+                <pre class="prettyprint">
+                        
+                    Route::post('post', 'PostController@Store')->name('posts.store');
+                </pre>
+                <pre class="prettyprint">
+                        
+                    > php artisan make:controller PostController
+                </pre>
+                <p>Como aprendimos antes, hicimos la validación aquí, pero por buenas practicas es mejor 
+                    hacerlo en un archivo separado
+                </p>
+                <pre class="prettyprint">
+                        
+                    > php artisan make:request PostRequest
+                </pre>
+                <pre class="prettyprint">
+                        
+                    class PostRequest extends FormRequest
+                    {
+                        /**
+                         * Determine if the user is authorized to make this request.
+                         *
+                         * @return bool
+                         */
+                        public function authorize()
+                        {
+                            return true;
+                        }
+                    
+                        /**
+                         * Get the validation rules that apply to the request.
+                         *
+                         * @return array
+                         */
+                        public function rules()
+                        {
+                            return [
+                                'title' => 'required'
+                            ];
+                        }
+                    }
+                </pre>
+                <p>Ahora si en el controlador, llamamos nuestro PostRequest</p>
+                <pre class="prettyprint">
+                        
+                    use App\Http\Requests\PostRequest;
+
+                    class PostController extends Controller
+                    {
+                        public function store(PostRequest $request)
+                        {
+                            dd($request->all());
+                        }
+                    }
+                </pre>
+            </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección 11 de 37 - Blade: sistema de plantillas avanzado</h2>
+            <pre class="prettyprint">
+
+                > composer create-project --prefer-dist laravel/laravel blade "6.*"
+                > cd blade
+            </pre>
+
+            <pre class="prettyprint">
+
+                > php artisan serve
+            </pre>
+
+            <p>
+                En laravel usamos plantillas con blade, las encontramos en /resources/views
+                <br>
+                blade, nos permite hacer secciones, ciclos.
+                <br>
+                Con secciones nos referimos a que si hay mucho codigo que se repite
+                podemos crearlo en un archivo aparte y simplemente incluirlo donde lo necesitamos
+                un ejemplo, de esto es el header, footer. Ademas por supuesto podemos tener una
+                base con todo el esqueleto de nuestra plantilla html
+            </p>
+
+            <pre class="prettyprint">
+                    
+                &lt!DOCTYPE html>
+                &lthtml lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+                    &lthead>
+                        &ltmeta charset="utf-8">
+                        &ltmeta name="viewport" content="width=device-width, initial-scale=1">
+                
+                        &lttitle>Laravel&lt/title>
+                
+                        &lt!-- Fonts -->
+                        &ltlink href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+                
+                    &lt/head>
+                    &ltbody>
+                        @include('header')
+                        
+                        @yield('content')
+                
+                        @include('footer')
+                    &lt/body>
+                &lt/html>
+                
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                Este es el header
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                Este es el pie de página
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                @extends('app')
+
+                @section('content')
+                &ltp>
+                    Hola, soy home
+                &lt/p>
+                @endsection
+            </pre>
+            <p>NOTA: Los archivos que editamos en las vistas con blade, no 
+                son las que se exponen directamente.
+                <br>
+                hay una version en php que encontramos en: 
+                /storage/framework/views
+            </p>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección 12 de 37 - Trabajando con el componente Laravel/UI</h2>
+            <pre class="prettyprint">
+
+                > composer create-project --prefer-dist laravel/laravel ui "6.*"
+                > cd ui
+            </pre>
+
+            <pre class="prettyprint">
+
+                > php artisan serve
+            </pre>
+
+            <p>Instalación necesaria</p>
+
+            <pre class="prettyprint">
+                    
+                > composer require laravel/ui:* --dev
+                > php artisan ui bootstrap --auth
+                > npm install
+                > npm run dev
+            </pre>
+            <p>
+                Automaticamente se crea la carpeta /resource/js y sass
+                <br> y se compilan en 
+                public/css y js.
+                <br>
+                Tenemos un login listo para ser usado.
+                <br>
+                Tambien la carpeta node_modules.
+                <br>
+                Ademas de las vistas para un sistema de autenticacion completo
+            </p>
+          </article>
+        </section>
+
+
+
+
+
+
+
+
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

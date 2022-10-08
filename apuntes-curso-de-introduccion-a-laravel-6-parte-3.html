@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<title>Apuntes del Curso de introduccion a laravel 6 - parte 3</title>
+</head>
+
+<body>
+<header class="text-center">
+<h1>Apuntes del Curso de introduccion a laravel 6 - parte 3</h1>
+</header>
+<main class="container">
+    <hr>
+
+    <section class="row">
+      <article class="col">
+        <h2>Sección 27 de 37 - Introduccion al testing</h2>
+        <p>Crear un nuevo proyecto</p>
+        <pre class="prettyprint">
+                
+          > composer create-project --prefer-dist laravel/laravel new-api "6.*"
+          > cd new-api
+          > php artisan serve
+        </pre>
+
+        <pre class="prettyprint">
+                
+            > php artisan make:test UserTest
+            > php artisan make:test UserTest --unit // Prueba unitaria... no la vamos a utilizar
+        </pre>
+
+        <pre class="prettyprint">
+                
+            > vendor/bin/phpunit
+        </pre>
+
+      </article>
+    </section>
+
+    <hr>
+    
+    <section class="row">
+      <article class="col">
+        <h2>Sección 28 de 37 - Metodología y testing HTTP</h2>
+        <ul>
+            <li>ROJO: Creamos el test</li>
+            <li>VERDE: Creamos la logica necesaria para pasar el test</li>
+            <li>REFACTORY: Revisamos el código para que quede entendible (comentarios, buenas practicas, etc...)</li>
+        </ul>
+        <p>Eliminamos todos los test que tenemos en tests/Feature y tests/Unit</p>
+        <pre class="prettyprint">
+                
+            >  php artisan make:test PageTest
+            > vendor/bin/phpunit
+        </pre>
+        <p>Creación de la prueba</p>
+        <pre class="prettyprint">
+                
+            public function test_about()
+            {
+                $response = $this->get('/about');
+        
+                $response->assertStatus(200);
+            }
+        </pre>
+        <p>Creación del codigo pata pasar la prueba</p>
+        <pre class="prettyprint">
+                
+            Route::get('/about', function () {
+                return view('welcome');
+            });
+        </pre>
+        <p>Refactory</p>
+        <pre class="prettyprint">
+                
+            Route::view('/about', 'welcome');
+        </pre>
+      </article>
+    </section>
+
+    <hr>
+    
+    <section class="row">
+      <article class="col">
+        <h2>Sección 29 de 37 - Proyecto API con TDD: presentación y configuración inicial</h2>
+        <pre class="prettyprint">
+                
+            > php artisan make:test Http/Controllers/Api/PostControllerTest
+            > vendor/bin/phpunit
+            > php artisan make:model Post -fm
+            > php artisan make:controller Api/PostController --api --model=Post
+        </pre>
+
+        <p>Creo un archivo en la carpeta database
+            <br>
+            el nombre del archivo es database.sqlite
+            <br>
+            Tenemos que configurar el proyecto con este archivo en config/database.php
+        </p>
+        <pre class="prettyprint">
+                
+            'connections' => [
+
+            'sqlite' => [
+                'driver' => 'sqlite',
+                'url' => env('DATABASE_URL'),
+                // 'database' => env('DB_DATABASE', database_path('database.sqlite')),
+                'database' => database_path('database.sqlite'),
+                'prefix' => '',
+                'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+            ],
+
+            // ...
+            // ...
+        </pre>
+      </article>
+    </section>
+
+    <hr>
+    
+    <section class="row">
+      <article class="col">
+        <h2>Sección 30 de 37 - Store con TDD</h2>
+        <pre class="prettyprint">
+                
+            class PostControllerTest extends TestCase
+            {
+                use RefreshDatabase;
+
+                public function test_store()
+                {
+                    $response = $this->json('POST', '/api/posts', [
+                        'title' => 'El post de prueba'
+                    ]);
+            
+                    $response->assertJsonStructure(['id', 'title', 'created_at', 'updated_at'])
+                                ->assertJson(['title' => 'El post de prueba'])
+                                ->assertStatus(201);
+            
+                    $this->assertDatabaseHas('posts', ['title' => 'El post de prueba']);
+                }
+            }
+        </pre>
+
+        <pre class="prettyprint">
+                
+            > vendor/bin/phpunit
+        </pre>
+
+        <p>Configuramos la migración</p>
+        <pre class="prettyprint">
+                
+            public function up()
+            {
+                Schema::create('posts', function (Blueprint $table) {
+                    $table->bigIncrements('id');
+        
+                    $table->string('title');
+        
+                    $table->timestamps();
+                });
+            }
+        </pre>
+        <p>Configuramos el modelo</p>
+        <pre class="prettyprint">
+                
+            class Post extends Model
+            {
+                protected $fillable = [
+                    'title',
+                ];
+            }
+        </pre>
+        <p>Ahora si configuramos el controlador</p>
+        <pre class="prettyprint">
+                
+            public function store(Request $request)
+            {
+                // $this->withoutExceptionHandling();
+                $post = Post::create($request->all());
+        
+                return response()->json($post, 201);
+            }
+        </pre>
+        <p>configuramos las rutas en api.php</p>
+        <pre class="prettyprint">
+                
+            Route::apiResource('posts', 'Api\PostController');
+        </pre>
+        <p>verificamos la lista de rutas en el programa</p>
+        <pre class="prettyprint">
+                
+            > php artisan route:list
+        </pre>
+        <p>Ejecutamos la prueba</p>
+        <pre class="prettyprint">
+                
+            > vendor/bin/phpunit
+        </pre>
+      </article>
+    </section>
+
+    <hr>
+    
+    <section class="row">
+      <article class="col">
+        <h2>Sección 31 de 37 - Refactorización y Validación en Store</h2>
+        <p>En PostController</p>
+        <pre class="prettyprint">
+                
+            class PostController extends Controller
+            {
+            
+                protected $post;
+            
+                public function __construct(Post $post)
+                {
+                    $this->post = $post;
+                }
+        </pre>
+        <p>Cambiamos nuestro metodo store</p>
+        <pre class="prettyprint">
+                
+            public function store(Request $request)
+            {
+                // $this->withoutExceptionHandling();
+                $post = $this->post->create($request->all());
+        
+                return response()->json($post, 201);
+            }
+        </pre>
+        <p>Creamos otro metodo en el test</p>
+        <pre class="prettyprint">
+                
+            public function test_validate_title()
+            {
+                $response = $this->json('POST', '/api/posts', [
+                    'title' => ''
+                ]);
+        
+                $response
+                    ->assertStatus(422)
+                    ->assertJsonValidationErrors('title');
+            }
+        </pre>
+        <p>En este paso estamos en rojo, creamos un request</p>
+
+        <pre class="prettyprint">
+                
+            > php artisan make:request Post
+        </pre>
+        <p>Editamos el request</p>
+
+        <pre class="prettyprint">
+                
+            class Post extends FormRequest
+            {
+                /**
+                 * Determine if the user is authorized to make this request.
+                 *
+                 * @return bool
+                 */
+                public function authorize()
+                {
+                    return true;
+                }
+            
+                /**
+                 * Get the validation rules that apply to the request.
+                 *
+                 * @return array
+                 */
+                public function rules()
+                {
+                    return [
+                        'title' => 'required'
+                    ];
+                }
+            }
+        </pre>
+        <p>Lo conectamos con el controlador</p>
+
+        <pre class="prettyprint">
+
+            // use Illuminate\Http\Request;
+
+            use App\Http\Requests\Post as PostRequest;
+
+            // ...
+            // ...
+            // ...
+                
+            public function store(PostRequest $request)
+            {
+                // $this->withoutExceptionHandling();
+                $post = $this->post->create($request->all());
+        
+                return response()->json($post, 201);
+            }
+        </pre>
+      </article>
+    </section>
+
+    <hr>
+    
+    <section class="row">
+      <article class="col">
+        <h2>Sección 32 de 37 - Show con TDD</h2>
+        <p>Creamos otro metodo en el test</p>
+        <pre class="prettyprint">
+            use App\Post;
+
+            // ... 
+            // ... 
+            // ... 
+                
+            public function test_show()
+            {
+                $post = factory(Post::class)->create();
+        
+                $response = $this->json('GET', "/api/posts/$post->id");
+        
+                $response->assertJsonStructure(['id', 'title', 'created_at', 'updated_at'])
+                    ->assertJson(['title' => $post->title])
+                    ->assertStatus(200); //OK, creado un recurso
+        
+            }
+        </pre>
+        <p>aquí estamos en rojo</p>
+        <p>Hacemos un factory</p>
+        <pre class="prettyprint">
+                
+            $factory->define(Post::class, function (Faker $faker) {
+                return [
+                    'title' => $faker->sentence
+                ];
+            });
+        </pre>
+        <p>Hacemos el método en el controlador</p>
+        <pre class="prettyprint">
+                
+            public function show(Post $post)
+            {
+                return response()->json($post);
+            }
+        </pre>
+        <p>Prueba en verde</p>
+        <p>Creamos otro test para comprobar un post que no existe</p>
+        <pre class="prettyprint">
+                
+            public function test_404_show()
+            {
+        
+                $response = $this->json('GET', "/api/posts/1000");
+        
+                $response
+                    ->assertStatus(404); //OK, creado un recurso
+        
+            }
+        </pre>
+      </article>
+    </section>
+
+    <hr>
+    
+    <section class="row">
+      <article class="col">
+        <h2>Sección 33 de 37 - Update y validación con TDD</h2>
+        <p>Creamos el Test</p>
+        <pre class="prettyprint">
+                
+            public function test_update()
+            {
+        
+                // $this->withoutExceptionHandling();
+        
+                $post = factory(Post::class)->create();
+        
+                $response = $this->json('PUT', "/api/posts/$post->id", [
+                    'title' => 'Nuevo'
+                ]);
+        
+                $response->assertJsonStructure(['id', 'title', 'created_at', 'updated_at'])
+                    ->assertJson(['title' => 'Nuevo'])
+                    ->assertStatus(200); //OK
+        
+                $this->assertDatabaseHas('posts', ['title' => 'Nuevo']);
+            }
+        </pre>
+        <p>test en rojo</p>
+        <pre class="prettyprint">
+                
+            > vendor/bin/phpunit
+        </pre>
+        <p>O podemos probar solo el test que estamos creando</p>
+        <pre class="prettyprint">
+                
+            > vendor/bin/phpunit --filter test_update
+        </pre>
+        <p>Hacemos la función en el controlador</p>
+        <pre class="prettyprint">
+                
+            public function update(PostRequest $request, Post $post)
+            {
+                $post->update($request->all());
+        
+                return response()->json($post);
+            }
+        </pre>
+        <p>Test en verde</p>
+        
+      </article>
+    </section>
+
+    <hr>
+    
+    <section class="row">
+      <article class="col">
+        <h2>Sección 34 de 37 - Delete con TDD</h2>
+        <p>Hacemos el test</p>
+        <pre class="prettyprint">
+                
+            public function test_delete()
+            {
+        
+                // $this->withoutExceptionHandling();
+        
+                $post = factory(Post::class)->create();
+        
+                $response = $this->json('DELETE', "/api/posts/$post->id");
+        
+                $response->assertSee(null)
+                    ->assertStatus(204);
+        
+                $this->assertDatabaseMissing('posts', ['id' => $post->id]);
+            }
+        </pre>
+        <p>hacemos el metodo en el controlador</p>
+        <pre class="prettyprint">
+                
+            public function destroy(Post $post)
+            {
+                $post->delete();
+        
+                return response()->json(null, 204);
+            }
+        </pre>
+      </article>
+    </section>
+
+    <hr>
+    
+    <section class="row">
+      <article class="col">
+        <h2>Sección 34 de 37 - Index con TDD</h2>
+        <p>Hacemos el test</p>
+        <pre class="prettyprint">
+                
+            public function test_index()
+            {
+                factory(Post::class, 5)->create();
+        
+                $response = $this->json('GET', "/api/posts");
+        
+                $response->assertJsonStructure([
+                    'data' => [
+                        '*' => ['id', 'title', 'created_at', 'updated_at']
+                        ]
+                    ])
+                    ->assertStatus(200); 
+            }
+        </pre>
+        <p>Hacemos el controlador</p>
+        <pre class="prettyprint">
+                
+            public function index()
+            {
+                // return dd($this->post->paginate());
+                // return $this->post->paginate();
+                return response()->json($this->post->paginate());
+            }
+        
+        </pre>
+      </article>
+    </section>
+
+    <hr>
+    
+    <section class="row">
+      <article class="col">
+        <h2>Sección 36 de 37 - Protección de una API con Login</h2>
+        <p>Creamos el Test, en esta ocasión tambien modificamos los otros test, para autenticar</p>
+        <pre class="prettyprint">
+                
+            class PostControllerTest extends TestCase
+            {
+                use RefreshDatabase;
+            
+                public function test_store()
+                {
+                    echo "test_Store";
+                    echo "test_Store";
+                    echo "test_Store";
+                    echo "test_Store";
+                    // $this->withoutExceptionHandling();
+                    $user = factory(User::class)->create();
+            
+                    $response = $this->actingAs($user, 'api')->json('POST', '/api/posts', [
+                        'title' => 'El post de prueba'
+                    ]);
+            
+                    echo "response";
+                    // echo $response;
+                    echo "response";
+            
+                    $response->assertJsonStructure(['id', 'title', 'created_at', 'updated_at'])
+                        ->assertJson(['title' => 'El post de prueba'])
+                        ->assertStatus(201); //OK, creado un recurso
+            
+                    $this->assertDatabaseHas('posts', ['title' => 'El post de prueba']);
+                }
+            
+                public function test_validate_title()
+                {
+                    $user = factory(User::class)->create();
+            
+                    $response = $this->actingAs($user, 'api')->json('POST', '/api/posts', [
+                        'title' => ''
+                    ]);
+            
+                    $response
+                        ->assertStatus(422)
+                        ->assertJsonValidationErrors('title');
+                }
+            
+                public function test_show()
+                {
+                    $user = factory(User::class)->create();
+            
+                    $post = factory(Post::class)->create();
+            
+                    $response = $this->actingAs($user, 'api')->json('GET', "/api/posts/$post->id");
+            
+                    $response->assertJsonStructure(['id', 'title', 'created_at', 'updated_at'])
+                        ->assertJson(['title' => $post->title])
+                        ->assertStatus(200); //OK, creado un recurso
+            
+                }
+            
+                public function test_404_show()
+                {
+                    $user = factory(User::class)->create();
+            
+                    $response = $this->actingAs($user, 'api')->json('GET', "/api/posts/1000");
+            
+                    $response
+                        ->assertStatus(404); //OK, creado un recurso
+            
+                }
+            
+                public function test_update()
+                {
+                    $user = factory(User::class)->create();
+            
+                    // $this->withoutExceptionHandling();
+            
+                    $post = factory(Post::class)->create();
+            
+                    $response = $this->actingAs($user, 'api')->json('PUT', "/api/posts/$post->id", [
+                        'title' => 'Nuevo'
+                    ]);
+            
+                    $response->assertJsonStructure(['id', 'title', 'created_at', 'updated_at'])
+                        ->assertJson(['title' => 'Nuevo'])
+                        ->assertStatus(200); //OK
+            
+                    $this->assertDatabaseHas('posts', ['title' => 'Nuevo']);
+                }
+            
+                public function test_delete()
+                {
+                    $user = factory(User::class)->create();
+            
+                    // $this->withoutExceptionHandling();
+            
+                    $post = factory(Post::class)->create();
+            
+                    $response = $this->actingAs($user, 'api')->json('DELETE', "/api/posts/$post->id");
+            
+                    $response->assertSee(null)
+                        ->assertStatus(204);
+            
+                    $this->assertDatabaseMissing('posts', ['id' => $post->id]);
+                }
+            
+                public function test_index()
+                {
+                    $user = factory(User::class)->create();
+            
+                    factory(Post::class, 5)->create();
+            
+                    $response = $this->actingAs($user, 'api')->json('GET', "/api/posts");
+            
+                    $response->assertJsonStructure([
+                        'data' => [
+                            '*' => ['id', 'title', 'created_at', 'updated_at']
+                            ]
+                        ])
+                        ->assertStatus(200); 
+                }
+            
+                public function test_guest()
+                {
+                    $this->json('GET',    '/api/posts')->assertStatus(401);
+                    $this->json('POST',   '/api/posts')->assertStatus(401);
+                    $this->json('GET',    '/api/posts/1000')->assertStatus(401);
+                    $this->json('PUT',    '/api/posts/1000')->assertStatus(401);
+                    $this->json('DELETE', '/api/posts/1000')->assertStatus(401);
+                }
+            
+                
+            }
+        </pre>
+        <p>Tambien modificamos las rutas</p>
+        <pre class="prettyprint">
+                
+            Route::apiResource('posts', 'Api\PostController')->middleware('auth:api');
+        </pre>
+      </article>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+
+</html>

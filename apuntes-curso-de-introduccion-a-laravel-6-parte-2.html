@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<title>Curso de Introducción a laravel 6 - parte 2</title>
+</head>
+
+<body>
+<header class="text-center">
+<h1>Curso de Introducción a laravel 6 - parte 2</h1>
+</header>
+<main class="container">
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 13 de 37 - Eloquent: trabajando con este ORM</h2>
+    <pre class="prettyprint">
+            
+      > composer create-project --prefer-dist laravel/laravel eloquent "6.*"
+      > cd eloquent
+      > php artisan make:model -h
+      > php artisan make:model post -m -f // en Ingles y Singular... 
+    </pre>
+    <p>Agrego el nombre de mi base de datos al archivo .env
+      <br> También la contraseña si es necesario.
+      <br> Creo la base de datos, puede ser con workbench.
+    </p>
+    <pre class="prettyprint">
+            
+      // database/migrations
+      // buscamos el ultimo archivo, está ordenado por fecha y hora
+      public function up()
+      {
+          Schema::create('posts', function (Blueprint $table) {
+              $table->bigIncrements('id');
+              $table->string('title'); // Agrego esta linea
+              $table->timestamps();
+          });
+      }
+    </pre>
+    <pre class="prettyprint">
+            
+      > php artisan migrate
+    </pre>
+    <pre class="prettyprint">
+      // database/factories/PostFactory.php
+            
+      $factory->define(post::class, function (Faker $faker) {
+        return [
+            'title' => $faker->sentence // Agrego esta linea
+        ];
+    });
+    </pre>
+    <pre class="prettyprint">
+            
+      > php artisan tinker
+      $ factory(App\post::class, 30)->create()
+    </pre>
+    <p>ya con esto tenemos 30 registros</p>
+    <pre class="prettyprint">
+            
+      use App\post;
+
+      Route::get('eloquent', function () {
+          // $posts = post::all();
+          // $posts = post::where('id', '>=', '20')->get();
+          // $posts = post::where('id', '>=', '20')->orderBy('id', 'desc')->get();
+          $posts = post::where('id', '>=', '20')->orderBy('id', 'desc')->take(3)->get();
+      
+          foreach ($posts as $post) {
+              echo "$post->id $post->title &ltbr>";
+          }
+      });
+    </pre>
+    <p>Creamos una ruta y jugamos con 4 diferentes formas de mostrar datos</p>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 14 de 37 - Relaciones de tablas</h2>
+    <pre class="prettyprint">
+            
+      public function up()
+      {
+          Schema::create('posts', function (Blueprint $table) {
+              $table->bigIncrements('id');
+  
+              $table->unsignedBigInteger('user_id'); // linea agregada
+              $table->string('title');
+              
+              $table->foreign('user_id')->references('id')->on('users'); // linea agregada
+  
+              $table->timestamps();
+          });
+      }
+    </pre>
+    <pre class="prettyprint">
+            
+      > php artisan migrate
+    </pre>
+    <p>Este comando no produce cambios, debido a que no hay archivos nuevos... aunque hemos editado un archivo.</p>
+    <pre class="prettyprint">
+            
+      > php artisan migrate:refresh
+    </pre>
+    <p>Ahora... si se hace la migracion, pero se borran los datos fake.</p>
+    <pre class="prettyprint">
+            
+      // database/seeds/DatabaseSeeder.php
+      public function run()
+      {
+          // $this->call(UsersTableSeeder::class);
+          factory(App\User::class, 4)->create();
+          factory(App\post::class, 30)->create();
+      }
+    </pre>
+    <pre class="prettyprint">
+            
+      $factory->define(post::class, function (Faker $faker) {
+        return [
+            'user_id' => rand(1, 4),
+            'title' => $faker->sentence
+        ];
+    });
+    </pre>
+    <pre class="prettyprint">
+            
+      > php artisan migrate:refresh --seed
+    </pre>
+    <pre class="prettyprint">
+            
+      // app/User.php
+      public function posts()
+      {
+          return $this->hasMany(post::class);
+      }
+
+      // app/post.php
+      public function user()
+      {
+          return $this->belongsTo(User::class);
+      }
+    </pre>
+    <p>Agregamos 2 rutas</p>
+    <pre class="prettyprint">
+            
+      Route::get('posts', function () {
+        $posts = post::all();
+    
+        foreach ($posts as $post) {
+            echo "
+            $post->id - 
+            &ltstrong>{$post->user->name}&lt/strong> - 
+            $post->title &ltbr>";
+        }
+    });
+    
+    Route::get('users', function () {
+        $users = User::all();
+    
+        foreach ($users as $user) {
+            echo "
+            $user->id - 
+            &ltstrong>{$user->name}&lt/strong> - 
+            {$user->posts->count()} posts.&ltbr>
+            ";
+        }
+    });
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 15 de 37 - Colecciones y serialización de datos</h2>
+    <p>Creamos 3 rutas para experimentar</p>
+    <pre class="prettyprint">
+            
+      Route::get('collections', function () {
+        $users = User::all();
+    
+        // dd($users);
+        // dd($users->contains(4));
+        // dd($users->contains(5));
+        // dd($users->except([1,2,3]));
+        // dd($users->only(4));
+        // dd($users->find(4));
+        dd($users->load('posts'));
+    });
+    
+    Route::get('serialization', function () {
+        $users = User::all();
+    
+        // dd($users->toArray());
+        $user = $users->find(1);
+        // dd($user);
+        dd($user->toJson());
+    });
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 16 de 37 - Formato de valores en tablas y presentación de datos</h2>
+    <pre class="prettyprint">
+            
+      // app/User.php
+      public function getGetNameAttribute()
+      {
+          return strtoupper($this->name);
+      }
+  
+      public function setNameAttribute($value)
+      {
+          $this->attributes['name'] = strtolower($value);
+      }
+    </pre>
+    <pre class="prettyprint">
+            
+      // app/post.php
+      public function getGetTitleAttribute()
+      {
+          // return strtoupper($this->title);
+          return ucfirst($this->title);
+      }
+  
+      public function setTitleAttribute($value)
+      {
+          $this->attributes['title'] = strtolower($value);
+      }
+    </pre>
+    <pre class="prettyprint">
+            
+      Route::get('posts', function () {
+        $posts = post::all();
+    
+        foreach ($posts as $post) {
+            echo "
+            $post->id - 
+            &ltstrong>{$post->user->get_name}&lt/strong> - 
+            $post->get_title &ltbr>";
+        }
+    });
+    
+    Route::get('users', function () {
+        $users = User::all();
+    
+        foreach ($users as $user) {
+            echo "
+            $user->id - 
+            &ltstrong>{$user->get_name}&lt/strong> - 
+            {$user->posts->count()} posts.&ltbr>
+            ";
+        }
+    });
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 17 de 37 - Proyecto blog: presentacion y configuracion inicial</h2>
+    <pre class="prettyprint">
+            
+      > composer create-project --prefer-dist laravel/laravel eloquent "6.*"
+      > cd basic-new
+    </pre>
+    <p>Se debia hacer con un --auth, pero no lo pude hacer con ese comando</p>
+    <pre class="prettyprint">
+            
+      > php artisan make:model Post -mfc
+    </pre>
+    <a href="https://packagist.org">Paquetes Conposer - packagist</a>
+    <pre class="prettyprint">
+            
+      > composer require cviebrock/eloquent-sluggable
+      // este no funciono
+      > composer require cviebrock/eloquent-sluggable:* // este si
+    </pre>
+
+    <pre class="prettyprint">
+            
+      use Cviebrock\EloquentSluggable\Sluggable;
+
+      class Post extends Model
+      {
+          use Sluggable;
+      
+          /**
+           * Return the sluggable configuration array for this model.
+           *
+           * @return array
+           */
+          public function sluggable(): array
+          {
+              return [
+                  'slug' => [
+                      'source' => 'title',
+                      'onUpdate' => true
+                  ]
+              ];
+          }
+      }
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 18 de 37 - Creación de tablas, entidades y datos de pruebas</h2>
+    <p>configuramos la migracion</p>
+    <pre class="prettyprint">
+            
+      public function up()
+      {
+          Schema::create('posts', function (Blueprint $table) {
+              $table->bigIncrements('id');
+  
+              $table->bigInteger('user_id')->unsigned();
+  
+              $table->string('title');
+              $table->string('slug')->unique();
+  
+              $table->string('image')->nullable();
+  
+              $table->text('body');
+              $table->text('iframe')->nullable();
+  
+              $table->timestamps();
+  
+              $table->foreign('user_id')->references('id')->on('users');
+          });
+    </pre>
+    <p>Configuramos el factory para los datos de prueba</p>
+
+    <pre class="prettyprint">
+            
+      $factory->define(Post::class, function (Faker $faker) {
+        return [
+            'user_id' => 1,
+            'title'   => $faker->sentence,
+            'body'    => $faker->text(800)
+        ];
+    });
+    </pre>
+    <p>Configuramos el seed</p>
+    <pre class="prettyprint">
+            
+      public function run()
+      {
+          // $this->call(UsersTableSeeder::class);
+          App\User::create([
+              'name' => 'Alexander Diaz',
+              'email' => 'i@admin.com',
+              'password' => bcrypt('123456')
+          ]);
+  
+          factory(App\Post::class, 24)->create();
+      }
+    </pre>
+    <p>Configuramos las variables de entorno, para la conexion a la base de datos
+      <br>
+      creamos la base de datos, manualmente
+    </p>
+    <pre class="prettyprint">
+            
+      // Ejecutamos
+      > php artisan migrate:refresh --seed
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 19 de 37 - Plantillas de Trabajo y entendiendo el login</h2>
+    <p>Como no podia hacer la autenticación desde la creacion del proyecto</p>
+    <pre class="prettyprint">
+            
+      > composer require laravel/ui:* --dev
+      > php artisan ui bootstrap --auth
+      > npm i
+      > npm run dev
+    </pre>
+    <p>Configurar la parte visual, para ello configuramos las rutas</p>
+    <pre class="prettyprint">
+            
+      Route::get('/', 'PageController@posts');
+      Route::get('/blog/{post}', 'PageController@post')->name('post');
+    </pre>
+    <p>creamos el controlador</p>
+    <pre class="prettyprint">
+            
+      > php artisan make:controller PageController
+    </pre>
+    <pre class="prettyprint">
+            
+      class PageController extends Controller
+      {
+          public function posts()
+          {
+              return view('posts', [
+                  'posts' => Post::with('user')->latest()->paginate()
+              ]);
+          }
+          
+          public function post(Post $post)
+          {
+              return view('post', ['post' => $post]);
+          }
+      }
+    </pre>
+    <p>Configuramos los 2 modelos indicando las relaciones</p>
+    <pre class="prettyprint">
+            
+      // App/User.php
+      public function posts()
+      {
+          return $this->hasMany(Post::class);
+      }
+
+      // App/Post.php
+      public function user()
+      {
+          return $this->belongsTo(User::class);
+      }
+    </pre>
+    <p>Ahora solo nos falta las vistas</p>
+    <pre class="prettyprint">
+            
+      @extends('layouts.app')
+
+      @section('content')
+      &ltdiv class="container">
+          &ltdiv class="row justify-content-center">
+              &ltdiv class="col-md-8">
+                  @foreach($posts as $post)
+                  &ltdiv class="card mb-4">
+                      &ltdiv class="card-body">
+                          &lth5 class="card-title">{{ $post->title }}&lt/h5>
+                          &ltp class="card-text">
+                              {{ $post->get_excerpt }}
+                              &lta href="{{ route('post', $post) }}">Leer más&lt/a>
+                          &lt/p>
+                          &ltp class="text-muted mb-0">
+                              &ltem>
+                                  &ndash; {{ $post->user->name }}
+                              &lt/em>
+                              {{ $post->created_at->format('d M Y')}}
+                          &lt/p>
+                      &lt/div>
+                  &lt/div>
+                  @endforeach
+              &lt/div>
+          &lt/div>
+      &lt/div>
+      @endsection
+      
+    </pre>
+    <pre class="prettyprint">
+            
+      @extends('layouts.app')
+
+      @section('content')
+      &ltdiv class="container">
+          &ltdiv class="row justify-content-center">
+              &ltdiv class="col-md-8">
+                  &ltdiv class="card mb-4">
+                      &ltdiv class="card-body">
+                          &lth5 class="card-title">{{ $post->title }}&lt/h5>
+                          &ltp class="card-text">
+                              {{ $post->body }}
+                          &lt/p>
+                          &ltp class="text-muted mb-0">
+                              &ltem>
+                                  &ndash; {{ $post->user->name }}
+                              &lt/em>
+                              {{ $post->created_at->format('d M Y')}}
+                          &lt/p>
+                      &lt/div>
+                  &lt/div>
+              &lt/div>
+          &lt/div>
+      &lt/div>
+      @endsection
+      
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 20 de 37 - Diseño visual con Bootstrap</h2>
+    <p>Esto ya lo habiamos hecho</p>
+    <pre class="prettyprint">
+            
+      > npm i
+      > npm run dev
+    </pre>
+    <p>Pero agregamos un metodo para sacar un pequeño extracto del cuerpo</p>
+    <pre class="prettyprint">
+      // App/Post.php
+      public function getGetExcerptAttribute()
+      {
+          return substr($this->body, 0, 140);
+      }
+    </pre>
+    <p>Agregamos paginación</p>
+    <pre class="prettyprint">
+            
+      {{ $posts->links() }}
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 21 de 37 - Vista index y botones de acción</h2>
+    <p>Agregamos una ruta de tipo de recursos, podriamos usar el controlador que ya tenemos,
+      <br>
+      pero lo haremos de otra forma, vamos a eliminar el PostController que tenemos y creamos otros
+    </p>
+    <pre class="prettyprint">
+            
+      > php artisan make:controller Backend/PostController --resource --model=Post
+    </pre>
+    <p>Ahora hacemos la ruta</p>
+    <pre class="prettyprint">
+            
+      // Route::resource('posts', 'PostController');
+      Route::resource('posts', 'Backend\PostController')
+              ->middleware('auth')
+              ->except('show');
+    </pre>
+    <p>Modificamos nuestro controlador</p>
+    <pre class="prettyprint">
+            
+      public function index()
+      {
+          $posts = Post::latest()->get();
+  
+          return view('posts.index', compact('posts'));
+      }
+    </pre>
+    <p>Creamos la vista</p>
+    <pre class="prettyprint">
+            
+      @extends('layouts.app')
+
+      @section('content')
+      &ltdiv class="container">
+          &ltdiv class="row justify-content-center">
+              &ltdiv class="col-md-8">
+                  &ltdiv class="card">
+                      &ltdiv class="card-header">
+                          Artículos
+                          &lta href="{{ route('posts.create') }}" class="btn btn-sm btn-primary float-right">Crear&lt/a>
+                      &lt/div>
+      
+                      &ltdiv class="card-body">
+                          @if (session('status'))
+                              &ltdiv class="alert alert-success" role="alert">
+                                  {{ session('status') }}
+                              &lt/div>
+                          @endif
+      
+                          &lttable class="table">
+                              &ltthead>
+                                  &lttr>
+                                      &ltth>ID&lt/th>
+                                      &ltth>Título&lt/th>
+                                      &ltth colspan="2">&nbsp;&lt/th>
+                                  &lt/tr>
+                              &lt/thead>
+                              &lttbody>
+                                  @foreach($posts as $post)
+                                  &lttr>
+                                      &lttd>{{ $post->id }}&lt/td>
+                                      &lttd>{{ $post->title }}&lt/td>
+                                      &lttd>
+                                          &lta href="{{ route('posts.edit', $post) }}" class="btn btn-primary btn-sm">
+                                              Editar
+                                          &lt/a>
+                                      &lt/td>
+                                      &lttd>
+                                          &ltform action="{{ route('posts.destroy', $post) }}" method="POST">
+                                              @csrf
+                                              @method('DELETE')
+                                              &ltinput 
+                                                  type="submit" 
+                                                  value="Eliminar" 
+                                                  class="btn btn-sm btn-danger"
+                                                  onclick="return confirm('¿Desea eliminar..?')"
+                                              >
+                                          &lt/form>
+                                      &lt/td>
+                                  &lt/tr>
+                                  @endforeach
+                              &lt/tbody>
+                          &lt/table>
+                      &lt/div>
+                  &lt/div>
+              &lt/div>
+          &lt/div>
+      &lt/div>
+      @endsection
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 22 de 37 - Implementacion del formulario de creacion</h2>
+    <p>Implementamos el controlador</p>
+    <pre class="prettyprint">
+            
+      public function create()
+      {
+          return view('posts.create');
+      }
+    </pre>
+    <p>
+      implementamos la vista
+    </p>
+    <pre class="prettyprint">
+            
+      @extends('layouts.app')
+
+      @section('content')
+      &ltdiv class="container">
+          &ltdiv class="row justify-content-center">
+              &ltdiv class="col-md-8">
+                  &ltdiv class="card">
+                      &ltdiv class="card-header">Crear Artículo&lt/div>
+      
+                      &ltdiv class="card-body">
+                          @if (session('status'))
+                              &ltdiv class="alert alert-success" role="alert">
+                                  {{ session('status') }}
+                              &lt/div>
+                          @endif
+      
+                          &ltform 
+                              action="{{ route('posts.store') }}" 
+                              method="POST"
+                              enctype="multipart/form-data"
+                          >
+                              &ltdiv class="form-group">
+                                  &ltlabel>Título *&lt/label>
+                                  &ltinput type="text" name="title" class="form-control" required>
+                              &lt/div>
+                              &ltdiv class="form-group">
+                                  &ltlabel>Image&lt/label>
+                                  &ltinput type="file" name="file">
+                              &lt/div>
+                              &ltdiv class="form-group">
+                                  &ltlabel>Contenido *&lt/label>
+                                  &lttextarea name="body" rows="6" class="form-control" required>&lt/textarea>
+                              &lt/div>
+                              &ltdiv class="form-group">
+                                  &ltlabel>Contenido embebido&lt/label>
+                                  &lttextarea name="iframe" class="form-control">&lt/textarea>
+                              &lt/div>
+                              &ltdiv class="form-group">
+                                  @csrf
+                                  &ltinput type="submit" value="Enviar" class="btn btn-sm btn-primary">
+                              &lt/div>
+                          &lt/form>
+                      &lt/div>
+                  &lt/div>
+              &lt/div>
+          &lt/div>
+      &lt/div>
+      @endsection
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 23 de 37 - Implementación del Guardado</h2>
+    <pre class="prettyprint">
+            
+      > php artisan make:request PostRequest
+    </pre>
+    <p>Configuramos el request</p>
+    <pre class="prettyprint">
+            
+      class PostRequest extends FormRequest
+      {
+          /**
+           * Determine if the user is authorized to make this request.
+           *
+           * @return bool
+           */
+          public function authorize()
+          {
+              return true;
+          }
+      
+          /**
+           * Get the validation rules that apply to the request.
+           *
+           * @return array
+           */
+          public function rules()
+          {
+              return [
+                  'title' => 'required',
+                  'body' => 'required'
+              ];
+          }
+      }
+    </pre>
+
+    <p>Lo usamos en el controlador</p>
+
+    <pre class="prettyprint">
+
+      use App\Http\Requests\PostRequest;
+
+      // ...
+      // ...
+      // ...
+      // ...
+            
+      public function store(PostRequest $request)
+      {
+          //dd($request->all());
+          //salvar
+          $post = Post::create([
+              'user_id' => auth()->user()->id
+          ] + $request->all());
+  
+          //image
+          if ($request->file('file')) {
+              $post->image = $request->file('file')->store('posts', 'public');
+              $post->save();
+          }
+  
+          //retornar
+          return back()->with('status', 'Creado con éxito');
+      }
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 24 de 37 - Creando la funcion de editar un post</h2>
+    <p>Primero el controlador</p>
+    <pre class="prettyprint">
+            
+      public function edit(Post $post)
+      {
+          return view('posts.edit');
+      }
+    </pre>
+    <p>ahora la vista</p>
+
+    <pre class="prettyprint">
+      @extends('layouts.app')
+
+      @section('content')
+      &ltdiv class="container">
+          &ltdiv class="row justify-content-center">
+              &ltdiv class="col-md-8">
+                  &ltdiv class="card">
+                      &ltdiv class="card-header">Editar Artículo&lt/div>
+      
+                      &ltdiv class="card-body">
+                          @if (session('status'))
+                              &ltdiv class="alert alert-success" role="alert">
+                                  {{ session('status') }}
+                              &lt/div>
+                          @endif
+      
+                          &ltform action="{{ route('posts.update', $post) }}" method="POST" enctype="multipart/form-data">
+                              &ltdiv class="form-group">
+                                  &ltlabel>Título *&lt/label>
+                                  &ltinput type="text" name="title" class="form-control" required value="{{ old('title', $post->title) }}">
+                              &lt/div>
+                              &ltdiv class="form-group">
+                                  &ltlabel>Image&lt/label>
+                                  &ltinput type="file" name="file">
+                              &lt/div>
+                              &ltdiv class="form-group">
+                                  &ltlabel>Contenido *&lt/label>
+                                  &lttextarea name="body" rows="6" class="form-control" required>{{ old('body', $post->body) }}&lt/textarea>
+                              &lt/div>
+                              &ltdiv class="form-group">
+                                  &ltlabel>Contenido embebido&lt/label>
+                                  &lttextarea name="iframe" class="form-control">{{ old('iframe', $post->iframe) }}&lt/textarea>
+                              &lt/div>
+                              &ltdiv class="form-group">
+                                  @csrf
+                                  @method('PUT')
+                                  &ltinput type="submit" value="Actualizar" class="btn btn-sm btn-primary">
+                              &lt/div>
+                          &lt/form>
+                      &lt/div>
+                  &lt/div>
+              &lt/div>
+          &lt/div>
+      &lt/div>
+      @endsection
+      </pre>
+      <p>Con este comando vemos la lista de rutas de nuestro proyecto</p>
+      <pre class="prettyprint">
+              
+        > php artisan route:list
+      </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 25 de 37 - Actualizando nuestros datos</h2>
+    <p>Configurar la funcion eliminar en el controlador</p>
+    <pre class="prettyprint">
+            
+      public function destroy(Post $post)
+      {
+          // Eliminacion de la imagen
+          Storage::disk('public')->delete($post->image);
+          $post->delete();
+  
+          return back()->with('status', 'Eliminado con éxito');
+      }
+    </pre>
+    <p>Configurar la función editar en el controlador</p>
+    <pre class="prettyprint">
+      use Illuminate\Support\Facades\Storage;
+
+      // ...
+      // ...
+      // ...
+            
+      public function update(PostRequest $request, Post $post)
+      {
+          //dd($request->all());
+          $post->update($request->all());
+  
+          if ($request->file('file')) {
+              Storage::disk('public')->delete($post->image);
+              $post->image = $request->file('file')->store('posts', 'public');
+              $post->save();
+          }
+  
+          return back()->with('status', 'Actualizado con éxito');
+      }
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 26 de 37 - Integrando contenido audiovisual</h2>
+    <p>Agrego html</p>
+    <pre class="prettyprint">
+            
+      @if ($post->image)
+      &ltimg src="{{ $post->get_image }}" class="card-img-top">
+      @elseif ($post->iframe)
+      &ltdiv class="embed-responsive embed-responsive-16by9">
+          {!! $post->iframe !!}
+      &lt/div>
+      @endif
+    </pre>
+    <p>Creamos la funcion para obtener la url de la imagen</p>
+    <pre class="prettyprint">
+            
+      public function getGetImageAttribute()
+      {
+          if($this->image)
+              return url("storage/$this->image");
+      }
+    </pre>
+    <p>Utilizamos un comanpo para poder acceder al almacenamieto</p>
+    <pre class="prettyprint">
+            
+      > php artisan storage:link
+    </pre>
+    <p>Tambien colocamos la imagen en la vista individual</p>
+    <pre class="prettyprint">
+            
+      @if ($post->image)
+      &ltimg src="{{ $post->get_image }}" class="card-img-top">
+      @elseif ($post->iframe)
+      &ltdiv class="embed-responsive embed-responsive-16by9">
+          {!! $post->iframe !!}
+      &lt/div>
+      @endif
+    </pre>
+  </article>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+
+</html>
